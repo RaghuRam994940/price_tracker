@@ -45,8 +45,17 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
 }
 
 // Bypasses Row Level Security (RLS) to process all users in the background
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
-  auth: { persistSession: false, autoRefreshToken: false },
+export const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+  auth: {
+    persistSession: false,
+    autoRefreshToken: false,
+  },
+  realtime: {
+    // Prevents WebSocket instantiation errors in non-browser Node environments
+    params: {
+      eventsPerSecond: 0,
+    },
+  },
 });
 
 const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
