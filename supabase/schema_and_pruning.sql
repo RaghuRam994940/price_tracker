@@ -32,6 +32,9 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'tracked_products' AND column_name = 'last_price_change_at') THEN
         ALTER TABLE public.tracked_products ADD COLUMN last_price_change_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now());
     END IF;
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'tracked_products' AND column_name = 'updated_at') THEN
+        ALTER TABLE public.tracked_products ADD COLUMN updated_at TIMESTAMPTZ NOT NULL DEFAULT timezone('utc'::text, now());
+    END IF;
 END $$;
 
 -- 3. Product Store Links Table (Supports multi-store comparison per product)

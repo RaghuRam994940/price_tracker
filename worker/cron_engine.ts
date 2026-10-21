@@ -21,10 +21,16 @@
  */
 
 import "dotenv/config";
+import WebSocket from "ws";
 import { createClient } from "@supabase/supabase-js";
 import { Resend } from "resend";
 import { scrapePrice, closeBrowser } from "./scraper";
 import { SupportedPlatform } from "../lib/platforms";
+
+// Ensure global WebSocket is available across any Node.js runtime (Node 18/20/22+)
+if (typeof (globalThis as any).WebSocket === "undefined") {
+  (globalThis as any).WebSocket = WebSocket;
+}
 
 // --- ENVIRONMENT CONFIGURATION ---
 const SUPABASE_URL = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
