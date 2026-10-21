@@ -233,55 +233,58 @@ export default function AddProductModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
-      <div className="w-full max-w-xl glass-panel rounded-2xl p-6 border border-surface-border shadow-card relative max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
+      <div className="w-full max-w-xl glass-panel rounded-2xl p-4 sm:p-6 border border-surface-border shadow-card relative max-h-[92dvh] overflow-y-auto my-auto">
         <button
           onClick={handleClose}
-          className="absolute top-5 right-5 text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-surface-border transition-colors cursor-pointer"
+          aria-label="Close modal"
+          className="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 text-slate-400 hover:text-white p-2 rounded-lg hover:bg-surface-border transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
-        <h2 className="text-xl font-bold text-white tracking-tight">Track New Product</h2>
-        <p className="text-xs text-slate-400 mt-0.5 mb-5">
+        <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight pr-8">
+          Track New Product
+        </h2>
+        <p className="text-xs text-slate-400 mt-0.5 mb-4 sm:mb-5 leading-relaxed">
           Choose automated multi-store discovery by name or paste a direct store URL.
         </p>
 
         {/* Tab Switcher */}
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-surface-secondary border border-surface-border mb-6">
+        <div className="flex items-center gap-1 sm:gap-1.5 p-1 rounded-xl bg-surface-secondary border border-surface-border mb-5 sm:mb-6">
           <button
             type="button"
             onClick={() => setActiveTab("search")}
-            className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+            className={`flex-1 py-2 px-2 sm:px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer truncate ${
               activeTab === "search"
                 ? "bg-brand text-background shadow-glow"
                 : "text-slate-400 hover:text-white"
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Auto-Search by Name</span>
+            <Sparkles className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">Auto-Search</span>
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("direct")}
-            className={`flex-1 py-2 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+            className={`flex-1 py-2 px-2 sm:px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer truncate ${
               activeTab === "direct"
                 ? "bg-brand text-background shadow-glow"
                 : "text-slate-400 hover:text-white"
             }`}
           >
-            <LinkIcon className="w-3.5 h-3.5" />
-            <span>Paste Direct URL</span>
+            <LinkIcon className="w-3.5 h-3.5 shrink-0" />
+            <span className="truncate">Paste Direct URL</span>
           </button>
         </div>
 
         {/* ================= TAB 1: AUTO-SEARCH ================= */}
         {activeTab === "search" && (
-          <div className="space-y-5">
+          <div className="space-y-4 sm:space-y-5">
             {searchError && (
-              <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2.5">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                <span>{searchError}</span>
+              <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-start sm:items-center gap-2.5">
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 sm:mt-0" />
+                <span className="break-words">{searchError}</span>
               </div>
             )}
 
@@ -296,39 +299,39 @@ export default function AddProductModal({
                     <input
                       type="text"
                       required
-                      placeholder="e.g. HP Omen 15 14th Gen or iPhone 15 128GB"
+                      placeholder="e.g. HP Omen 15 or iPhone 15"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       disabled={searching}
                       className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-secondary border border-surface-border text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-brand/50 transition-colors"
                     />
                   </div>
-                  <p className="text-[11px] text-slate-500 mt-1.5">
-                    We'll search Croma, Amazon, and Flipkart simultaneously to find the lowest active price.
+                  <p className="text-[11px] text-slate-500 mt-1.5 leading-relaxed">
+                    We'll scan Croma, Amazon, and Flipkart simultaneously to find the lowest active price.
                   </p>
                 </div>
 
-                <div className="pt-2 flex items-center justify-end gap-3">
+                <div className="pt-2 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3">
                   <button
                     type="button"
                     onClick={handleClose}
-                    className="px-4 py-2.5 rounded-xl bg-surface-secondary hover:bg-surface-border text-slate-300 text-xs font-semibold transition-colors"
+                    className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-surface-secondary hover:bg-surface-border text-slate-300 text-xs font-semibold transition-colors text-center"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={searching || !searchQuery.trim()}
-                    className="px-5 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-background font-bold text-xs shadow-glow transition-all disabled:opacity-60 cursor-pointer flex items-center gap-2"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-background font-bold text-xs shadow-glow transition-all disabled:opacity-60 cursor-pointer flex items-center justify-center gap-2 text-center"
                   >
                     {searching ? (
                       <>
                         <div className="w-3.5 h-3.5 border-2 border-background/20 border-t-background rounded-full animate-spin" />
-                        <span>Scanning Croma, Amazon & Flipkart...</span>
+                        <span className="truncate">Scanning Stores...</span>
                       </>
                     ) : (
                       <>
-                        <Search className="w-3.5 h-3.5" />
+                        <Search className="w-3.5 h-3.5 shrink-0" />
                         <span>Find Lowest Price</span>
                       </>
                     )}
@@ -338,34 +341,36 @@ export default function AddProductModal({
             ) : (
               /* Step 2: Discovery Results Review & Target Price Setup */
               <div className="space-y-4">
-                <div className="p-4 rounded-xl bg-surface-secondary/80 border border-surface-border space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-brand uppercase tracking-wider">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-surface-secondary/80 border border-surface-border space-y-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[10px] sm:text-[11px] font-bold text-brand uppercase tracking-wider">
                       Discovery Complete
                     </span>
                     <button
                       type="button"
                       onClick={() => setDiscovery(null)}
-                      className="text-[11px] text-slate-400 hover:text-brand underline"
+                      className="text-[11px] text-slate-400 hover:text-brand underline truncate"
                     >
                       Change Search Query
                     </button>
                   </div>
 
-                  <h3 className="text-base font-bold text-white">{discovery.query}</h3>
+                  <h3 className="text-sm sm:text-base font-bold text-white break-words">
+                    {discovery.query}
+                  </h3>
 
                   {/* Lowest Price Banner */}
                   {discovery.lowestPrice !== null ? (
-                    <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-between">
+                    <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div>
                         <div className="text-[10px] text-emerald-400 uppercase font-extrabold tracking-wider">
                           Lowest Detected Price
                         </div>
-                        <div className="text-2xl font-black text-emerald-400 mt-0.5">
+                        <div className="text-xl sm:text-2xl font-black text-emerald-400 mt-0.5">
                           {formatINR(discovery.lowestPrice)}
                         </div>
                       </div>
-                      <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-bold uppercase tracking-wider">
+                      <span className="self-start sm:self-auto px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">
                         Found on {discovery.lowestPlatform}
                       </span>
                     </div>
@@ -377,34 +382,37 @@ export default function AddProductModal({
 
                   {/* Multi-Store Comparison List */}
                   <div className="space-y-2 pt-1">
-                    <div className="text-[11px] text-slate-400 font-semibold uppercase tracking-wider">
+                    <div className="text-[10px] sm:text-[11px] text-slate-400 font-semibold uppercase tracking-wider">
                       Matched Store Listings ({discovery.stores.length})
                     </div>
-                    <div className="space-y-1.5">
+                    <div className="space-y-1.5 max-h-48 overflow-y-auto pr-0.5">
                       {discovery.stores.map((store, idx) => (
                         <div
                           key={idx}
-                          className={`flex items-center justify-between p-2.5 rounded-lg border text-xs ${
+                          className={`flex items-center justify-between p-2.5 rounded-lg border text-xs gap-2 ${
                             store.isLowest
                               ? "bg-emerald-500/5 border-emerald-500/30 text-white"
                               : "bg-background/60 border-surface-border text-slate-300"
                           }`}
                         >
-                          <div className="flex items-center gap-2 min-w-0 flex-1 pr-2">
-                            <span className="font-extrabold uppercase text-[10px] tracking-wider text-brand px-1.5 py-0.5 rounded bg-surface-secondary">
+                          <div className="flex items-center gap-2 min-w-0 flex-1">
+                            <span className="font-extrabold uppercase text-[9px] sm:text-[10px] tracking-wider text-brand px-1.5 py-0.5 rounded bg-surface-secondary shrink-0">
                               {store.platform}
                             </span>
-                            <span className="truncate text-slate-300">{store.title}</span>
+                            <span className="truncate text-slate-300 text-[11px] sm:text-xs">
+                              {store.title}
+                            </span>
                           </div>
                           <div className="flex items-center gap-2 shrink-0">
-                            <span className={store.isLowest ? "font-bold text-emerald-400" : "text-slate-400"}>
+                            <span className={`text-[11px] sm:text-xs font-semibold ${store.isLowest ? "text-emerald-400 font-bold" : "text-slate-400"}`}>
                               {store.price ? formatINR(store.price) : "Scan in worker"}
                             </span>
                             <a
                               href={store.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-slate-500 hover:text-brand"
+                              className="text-slate-500 hover:text-brand p-1"
+                              aria-label="View product page in store"
                             >
                               <ExternalLink className="w-3.5 h-3.5" />
                             </a>
@@ -417,13 +425,13 @@ export default function AddProductModal({
 
                 {/* Target Price Input */}
                 <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+                  <div className="flex items-center justify-between mb-1.5 gap-2">
+                    <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider truncate">
                       Your Alert Target Budget (₹)
                     </label>
                     {discovery.suggestedTargetPrice && (
-                      <span className="text-[10px] text-emerald-400 font-bold">
-                        Suggested: 5% discount
+                      <span className="text-[10px] text-emerald-400 font-bold shrink-0">
+                        Suggested: 5% off
                       </span>
                     )}
                   </div>
@@ -437,16 +445,16 @@ export default function AddProductModal({
                     onChange={(e) => setAutoTargetPrice(e.target.value)}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-surface-secondary border border-surface-border text-slate-100 text-sm focus:outline-none focus:border-brand/50 transition-colors"
                   />
-                  <p className="text-[11px] text-slate-500 mt-1">
+                  <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
                     You'll receive an instant email via Resend the minute any store drops below this amount.
                   </p>
                 </div>
 
-                <div className="pt-3 flex items-center justify-end gap-3 border-t border-surface-border">
+                <div className="pt-3 sm:pt-4 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3 border-t border-surface-border">
                   <button
                     type="button"
                     onClick={handleClose}
-                    className="px-4 py-2.5 rounded-xl bg-surface-secondary hover:bg-surface-border text-slate-300 text-xs font-semibold transition-colors"
+                    className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-surface-secondary hover:bg-surface-border text-slate-300 text-xs font-semibold transition-colors text-center"
                   >
                     Cancel
                   </button>
@@ -454,7 +462,7 @@ export default function AddProductModal({
                     type="button"
                     onClick={handleConfirmAutoDeal}
                     disabled={confirmingAuto || !autoTargetPrice}
-                    className="px-5 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-background font-bold text-xs shadow-glow transition-all disabled:opacity-60 cursor-pointer flex items-center gap-2"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-background font-bold text-xs shadow-glow transition-all disabled:opacity-60 cursor-pointer flex items-center justify-center gap-2 text-center"
                   >
                     {confirmingAuto ? (
                       <>
@@ -463,7 +471,7 @@ export default function AddProductModal({
                       </>
                     ) : (
                       <>
-                        <CheckCircle2 className="w-4 h-4" />
+                        <CheckCircle2 className="w-4 h-4 shrink-0" />
                         <span>Start Tracking This Deal</span>
                       </>
                     )}
@@ -478,9 +486,9 @@ export default function AddProductModal({
         {activeTab === "direct" && (
           <form onSubmit={handleDirectSubmit} className="space-y-4">
             {directError && (
-              <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2.5">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                <span>{directError}</span>
+              <div className="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-start sm:items-center gap-2.5">
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 sm:mt-0" />
+                <span className="break-words">{directError}</span>
               </div>
             )}
 
@@ -515,12 +523,12 @@ export default function AddProductModal({
             </div>
 
             <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+              <div className="flex items-center justify-between mb-1.5 gap-2">
+                <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider truncate">
                   Primary Store URL
                 </label>
                 {directPrimaryUrl && (
-                  <span className="text-[10px] font-bold text-brand uppercase">
+                  <span className="text-[10px] font-bold text-brand uppercase shrink-0">
                     Detected: {detectPlatform(directPrimaryUrl)}
                   </span>
                 )}
@@ -557,12 +565,12 @@ export default function AddProductModal({
                           )
                         );
                       }}
-                      className="flex-1 px-3 py-2 rounded-lg bg-surface-secondary border border-surface-border text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand/50"
+                      className="flex-1 px-3 py-2 rounded-lg bg-surface-secondary border border-surface-border text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand/50 min-w-0"
                     />
                     <button
                       type="button"
                       onClick={() => setSecondaryLinks((prev) => prev.filter((_, i) => i !== idx))}
-                      className="p-2 text-slate-400 hover:text-rose-400 transition-colors"
+                      className="p-2 text-slate-400 hover:text-rose-400 transition-colors shrink-0"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -574,24 +582,24 @@ export default function AddProductModal({
             <button
               type="button"
               onClick={() => setSecondaryLinks((prev) => [...prev, { url: "", platform: "other" }])}
-              className="text-xs text-brand hover:underline font-semibold flex items-center gap-1 pt-1"
+              className="text-xs text-brand hover:underline font-semibold flex items-center gap-1 pt-1 cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Add Secondary Store Link</span>
             </button>
 
-            <div className="pt-4 flex items-center justify-end gap-3 border-t border-surface-border">
+            <div className="pt-3 sm:pt-4 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-2.5 sm:gap-3 border-t border-surface-border">
               <button
                 type="button"
                 onClick={handleClose}
-                className="px-4 py-2.5 rounded-xl bg-surface-secondary hover:bg-surface-border text-slate-300 text-xs font-semibold transition-colors"
+                className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-surface-secondary hover:bg-surface-border text-slate-300 text-xs font-semibold transition-colors text-center"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={directSubmitting}
-                className="px-5 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-background font-bold text-xs shadow-glow transition-all disabled:opacity-60 cursor-pointer flex items-center gap-2"
+                className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-background font-bold text-xs shadow-glow transition-all disabled:opacity-60 cursor-pointer flex items-center justify-center gap-2 text-center"
               >
                 {directSubmitting && (
                   <div className="w-3.5 h-3.5 border-2 border-background/20 border-t-background rounded-full animate-spin" />

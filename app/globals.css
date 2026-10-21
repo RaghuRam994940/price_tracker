@@ -7,18 +7,28 @@
   --foreground: #f8fafc;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-feature-settings: "rlig" 1, "calt" 1;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 /* Custom scrollbar for modern dark theme */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #080c14;
@@ -58,4 +68,17 @@ body {
 
 .animate-soft-pulse {
   animation: soft-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Responsive breakout prevention */
+.truncate-multiline-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.break-word-safe {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }

@@ -230,31 +230,31 @@ export default function DashboardPage() {
   );
 
   return (
-    <div className="min-h-screen bg-background text-slate-100 flex flex-col">
+    <div className="min-h-screen bg-background text-slate-100 flex flex-col overflow-x-hidden">
       {/* Top Navigation */}
       <header className="border-b border-surface-border sticky top-0 z-40 bg-background/90 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2.5 sm:gap-3">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 rounded-lg bg-surface-secondary border border-surface-border flex items-center justify-center text-brand group-hover:border-brand/40 shadow-glow">
+              <div className="w-8 h-8 rounded-lg bg-surface-secondary border border-surface-border flex items-center justify-center text-brand group-hover:border-brand/40 shadow-glow shrink-0">
                 <Tag className="w-4 h-4 text-brand" />
               </div>
-              <span className="text-xl font-black tracking-tight text-white">VECHI</span>
+              <span className="text-lg sm:text-xl font-black tracking-tight text-white">VECHI</span>
             </Link>
-            <span className="hidden sm:inline-block text-xs uppercase px-2.5 py-0.5 rounded-full bg-brand/10 border border-brand/20 text-brand font-semibold">
+            <span className="hidden sm:inline-block text-[11px] uppercase px-2.5 py-0.5 rounded-full bg-brand/10 border border-brand/20 text-brand font-semibold">
               Live Console
             </span>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-2 text-xs text-slate-400 bg-surface-secondary px-3 py-1.5 rounded-lg border border-surface-border">
-              <Shield className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{userEmail}</span>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <div className="hidden md:flex items-center gap-2 text-xs text-slate-400 bg-surface-secondary px-3 py-1.5 rounded-lg border border-surface-border max-w-[220px] truncate">
+              <Shield className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+              <span className="truncate">{userEmail}</span>
             </div>
 
             <button
               onClick={handleSignOut}
-              className="p-2 rounded-lg bg-surface-secondary hover:bg-surface-border text-slate-400 hover:text-rose-400 transition-colors border border-surface-border"
+              className="p-2 rounded-xl bg-surface-secondary hover:bg-surface-border text-slate-400 hover:text-rose-400 transition-colors border border-surface-border"
               title="Sign Out"
             >
               <LogOut className="w-4 h-4" />
@@ -264,72 +264,72 @@ export default function DashboardPage() {
       </header>
 
       {/* Main Container */}
-      <main className="max-w-7xl mx-auto px-6 py-8 flex-1 w-full space-y-8">
-        {/* Metric Cards Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="glass-panel p-5 rounded-2xl border border-surface-border">
-            <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
-              <span>Tracked Products</span>
-              <Layers className="w-4 h-4 text-brand" />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex-1 w-full space-y-6 sm:space-y-8 overflow-x-hidden">
+        {/* Metric Cards Row - 2 cols on mobile, 4 on desktop */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+          <div className="glass-panel p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border border-surface-border">
+            <div className="flex items-center justify-between text-[11px] sm:text-xs text-slate-400 font-medium">
+              <span>Tracked</span>
+              <Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand" />
             </div>
-            <div className="text-2xl font-black text-white mt-2">{totalTracked}</div>
-            <div className="text-[11px] text-slate-500 mt-1">Multi-store items active</div>
+            <div className="text-xl sm:text-2xl font-black text-white mt-1 sm:mt-2">{totalTracked}</div>
+            <div className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 truncate">Active products</div>
           </div>
 
-          <div className="glass-panel p-5 rounded-2xl border border-surface-border">
-            <div className="flex items-center justify-between text-xs text-emerald-400 font-medium">
-              <span>Target Drops Met</span>
-              <TrendingDown className="w-4 h-4 text-emerald-400" />
+          <div className="glass-panel p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border border-surface-border">
+            <div className="flex items-center justify-between text-[11px] sm:text-xs text-emerald-400 font-medium">
+              <span>Drops Met</span>
+              <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-400" />
             </div>
-            <div className="text-2xl font-black text-emerald-400 mt-2">
+            <div className="text-xl sm:text-2xl font-black text-emerald-400 mt-1 sm:mt-2">
               {activeDropsCount}
             </div>
-            <div className="text-[11px] text-emerald-500/80 mt-1">Items at or below budget</div>
+            <div className="text-[10px] sm:text-[11px] text-emerald-500/80 mt-0.5 truncate">At/below budget</div>
           </div>
 
-          <div className="glass-panel p-5 rounded-2xl border border-surface-border">
-            <div className="flex items-center justify-between text-xs text-brand font-medium">
-              <span>Potential Savings</span>
-              <Sparkles className="w-4 h-4 text-brand" />
+          <div className="glass-panel p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border border-surface-border">
+            <div className="flex items-center justify-between text-[11px] sm:text-xs text-brand font-medium">
+              <span>Savings</span>
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand" />
             </div>
-            <div className="text-2xl font-black text-brand mt-2">
+            <div className="text-lg sm:text-2xl font-black text-brand mt-1 sm:mt-2 truncate">
               {formatINR(totalSavings)}
             </div>
-            <div className="text-[11px] text-slate-500 mt-1">Calculated from threshold</div>
+            <div className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 truncate">Total savings</div>
           </div>
 
-          <div className="glass-panel p-5 rounded-2xl border border-surface-border">
-            <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
-              <span>Automation Engine</span>
-              <Clock className="w-4 h-4 text-slate-400" />
+          <div className="glass-panel p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border border-surface-border">
+            <div className="flex items-center justify-between text-[11px] sm:text-xs text-slate-400 font-medium">
+              <span>Engine</span>
+              <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400" />
             </div>
-            <div className="text-base font-bold text-slate-200 mt-2 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-soft-pulse" />
-              <span>Cron (Every 4h)</span>
+            <div className="text-sm sm:text-base font-bold text-slate-200 mt-1 sm:mt-2 flex items-center gap-1.5 sm:gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-soft-pulse shrink-0" />
+              <span className="truncate">Cron (Every 4h)</span>
             </div>
-            <div className="text-[11px] text-slate-500 mt-1">Playwright + Resend</div>
+            <div className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5 truncate">Playwright + Resend</div>
           </div>
         </div>
 
         {/* Action Bar */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-          <div className="relative flex-1 max-w-md">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+          <div className="relative flex-1 max-w-full sm:max-w-md">
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
             <input
               type="text"
               placeholder="Search your tracked products..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-secondary border border-surface-border text-slate-200 placeholder-slate-500 text-sm focus:outline-none focus:border-brand/50 transition-colors"
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-secondary border border-surface-border text-slate-200 placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-brand/50 transition-colors"
             />
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="w-full sm:w-auto flex items-center gap-3">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="px-4 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-background font-bold text-sm transition-all duration-200 shadow-glow flex items-center justify-center gap-2 active:scale-[0.98] cursor-pointer"
+              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-background font-bold text-xs sm:text-sm transition-all duration-200 shadow-glow flex items-center justify-center gap-2 active:scale-[0.98] cursor-pointer"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-4 h-4 shrink-0" />
               <span>Track New Product</span>
             </button>
           </div>
@@ -337,18 +337,18 @@ export default function DashboardPage() {
 
         {/* Products List / Grid */}
         {loading ? (
-          <div className="py-24 text-center">
+          <div className="py-20 text-center">
             <div className="w-8 h-8 border-2 border-brand/30 border-t-brand rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-sm text-slate-400">Loading your price alerts...</p>
+            <p className="text-xs sm:text-sm text-slate-400">Loading your price alerts...</p>
           </div>
         ) : filteredProducts.length === 0 ? (
-          <div className="py-20 px-6 text-center glass-panel rounded-2xl border border-surface-border max-w-xl mx-auto">
-            <div className="w-12 h-12 rounded-2xl bg-surface-secondary border border-surface-border flex items-center justify-center text-brand mx-auto mb-4">
+          <div className="py-16 sm:py-20 px-4 sm:px-6 text-center glass-panel rounded-2xl border border-surface-border max-w-xl mx-auto">
+            <div className="w-12 h-12 rounded-2xl bg-surface-secondary border border-surface-border flex items-center justify-center text-brand mx-auto mb-4 shadow-glow">
               <Store className="w-6 h-6 text-brand" />
             </div>
-            <h3 className="text-lg font-bold text-white mb-1">No tracked products yet</h3>
+            <h3 className="text-base sm:text-lg font-bold text-white mb-1">No tracked products yet</h3>
             <p className="text-slate-400 text-xs max-w-md mx-auto mb-6">
-              Paste a product link from Croma, Amazon, or Flipkart to begin autonomous price monitoring.
+              Search by name or paste a link from Croma, Amazon, or Flipkart to begin autonomous price monitoring.
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
@@ -358,7 +358,7 @@ export default function DashboardPage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-3.5 sm:gap-4">
             {filteredProducts.map((prod) => {
               // Determine lowest price and winning link
               let lowestPrice = prod.current_price ?? null;
@@ -391,23 +391,23 @@ export default function DashboardPage() {
               return (
                 <div
                   key={prod.id}
-                  className="glass-panel p-6 rounded-2xl border border-surface-border hover:border-slate-700 transition-all flex flex-col gap-5 shadow-card"
+                  className="glass-panel p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-surface-border hover:border-slate-700 transition-all flex flex-col gap-4 sm:gap-5 shadow-card overflow-hidden"
                 >
                   {/* Card Header: Title & Drop Badge */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2.5 flex-wrap">
-                        <h3 className="text-lg font-bold text-white tracking-tight truncate">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="text-base sm:text-lg font-bold text-white tracking-tight break-words min-w-0">
                           {prod.title}
                         </h3>
                         {winningLink && (
-                          <span className="px-2.5 py-0.5 rounded-full bg-brand/10 border border-brand/20 text-brand text-[11px] font-bold uppercase tracking-wider">
+                          <span className="px-2 sm:px-2.5 py-0.5 rounded-full bg-brand/10 border border-brand/20 text-brand text-[10px] sm:text-[11px] font-bold uppercase tracking-wider shrink-0">
                             Best on {winningLink.platform}
                           </span>
                         )}
                       </div>
-                      <div className="text-[11px] text-slate-400 mt-1 flex items-center gap-2">
-                        <Clock className="w-3.5 h-3.5 text-slate-500" />
+                      <div className="text-[10px] sm:text-[11px] text-slate-400 mt-1 flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                        <Clock className="w-3.5 h-3.5 text-slate-500 shrink-0" />
                         <span>Last scanned: {formatRelativeTime(latestChecked)}</span>
                         <span>•</span>
                         <span>Target: <strong className="text-slate-300">{formatINR(prod.target_price)}</strong></span>
@@ -415,15 +415,15 @@ export default function DashboardPage() {
                     </div>
 
                     {/* Status Badge */}
-                    <div>
+                    <div className="self-start sm:self-auto shrink-0">
                       {isTargetMet ? (
-                        <span className="px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-extrabold flex items-center gap-1.5 shadow-glow-emerald">
-                          <TrendingDown className="w-4 h-4" />
+                        <span className="px-2.5 sm:px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[11px] sm:text-xs font-extrabold flex items-center gap-1.5 shadow-glow-emerald">
+                          <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                           <span>Save {formatINR(savings)} ({savingsPercent}%)</span>
                         </span>
                       ) : lowestPrice !== null ? (
-                        <span className="px-3 py-1 rounded-full bg-surface-secondary border border-surface-border text-slate-400 text-xs font-semibold flex items-center gap-1.5">
-                          <TrendingUp className="w-4 h-4 text-amber-400" />
+                        <span className="px-2.5 sm:px-3 py-1 rounded-full bg-surface-secondary border border-surface-border text-slate-400 text-[11px] sm:text-xs font-semibold flex items-center gap-1.5">
+                          <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 shrink-0" />
                           <span>{formatINR(lowestPrice - prod.target_price)} above budget</span>
                         </span>
                       ) : (
@@ -435,60 +435,62 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Main Price & Action Showcase Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 rounded-xl bg-background/60 border border-surface-border items-center">
-                    <div>
-                      <div className="text-[11px] text-slate-400 uppercase font-semibold tracking-wider">
-                        Current Lowest Price
+                  <div className="flex flex-col sm:grid sm:grid-cols-3 gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-xl bg-background/60 border border-surface-border sm:items-center">
+                    <div className="grid grid-cols-2 sm:contents gap-2 sm:gap-4">
+                      <div>
+                        <div className="text-[10px] sm:text-[11px] text-slate-400 uppercase font-semibold tracking-wider">
+                          Current Lowest
+                        </div>
+                        <div className="text-2xl sm:text-3xl font-black mt-0.5 truncate">
+                          {lowestPrice !== null ? (
+                            <span className={isTargetMet ? "text-emerald-400" : "text-white"}>
+                              {formatINR(lowestPrice)}
+                            </span>
+                          ) : (
+                            <span className="text-slate-500 text-sm font-normal">Pending scan</span>
+                          )}
+                        </div>
                       </div>
-                      <div className="text-3xl font-black mt-1">
-                        {lowestPrice !== null ? (
-                          <span className={isTargetMet ? "text-emerald-400" : "text-white"}>
-                            {formatINR(lowestPrice)}
-                          </span>
-                        ) : (
-                          <span className="text-slate-500 text-base font-normal">Pending initial scan</span>
-                        )}
-                      </div>
-                    </div>
 
-                    <div>
-                      <div className="text-[11px] text-slate-400 uppercase font-semibold tracking-wider">
-                        Target Budget
-                      </div>
-                      <div className="text-xl font-bold text-slate-300 mt-1 line-through decoration-slate-500">
-                        {formatINR(prod.target_price)}
+                      <div>
+                        <div className="text-[10px] sm:text-[11px] text-slate-400 uppercase font-semibold tracking-wider">
+                          Target Budget
+                        </div>
+                        <div className="text-lg sm:text-xl font-bold text-slate-300 mt-1 line-through decoration-slate-500 truncate">
+                          {formatINR(prod.target_price)}
+                        </div>
                       </div>
                     </div>
 
                     {/* CTA Buttons */}
-                    <div className="flex items-center sm:justify-end gap-2.5">
+                    <div className="flex items-center gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-surface-border/50 sm:justify-end">
                       {winningLink && (
                         <a
                           href={winningLink.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-background font-bold text-xs uppercase tracking-wider shadow-glow transition-all flex items-center justify-center gap-1.5"
+                          className="flex-1 sm:flex-initial px-3 sm:px-4 py-2.5 rounded-xl bg-brand hover:bg-brand-hover text-background font-bold text-xs uppercase tracking-wider shadow-glow transition-all flex items-center justify-center gap-1.5 active:scale-[0.98]"
                         >
-                          <span>Visit {winningLink.platform}</span>
-                          <ExternalLink className="w-3.5 h-3.5" />
+                          <span className="truncate">Visit {winningLink.platform}</span>
+                          <ExternalLink className="w-3.5 h-3.5 shrink-0" />
                         </a>
                       )}
 
                       <button
                         onClick={() => handleCheckNow(prod.id)}
                         disabled={isChecking}
-                        className="px-3 py-2.5 rounded-xl bg-surface-secondary hover:bg-surface-border text-slate-300 hover:text-white text-xs font-semibold border border-surface-border transition-colors flex items-center gap-1.5 disabled:opacity-60"
+                        className="p-2.5 sm:px-3 rounded-xl bg-surface-secondary hover:bg-surface-border text-slate-300 hover:text-white text-xs font-semibold border border-surface-border transition-colors flex items-center justify-center gap-1.5 disabled:opacity-60 shrink-0"
                         title="Check Live Price Now"
                       >
                         <RefreshCw
                           className={`w-3.5 h-3.5 ${isChecking ? "animate-spin text-brand" : ""}`}
                         />
-                        <span className="hidden sm:inline">{isChecking ? "Scanning..." : "Check"}</span>
+                        <span className="hidden md:inline">{isChecking ? "Scanning..." : "Check"}</span>
                       </button>
 
                       <button
                         onClick={() => handleDeleteProduct(prod.id)}
-                        className="p-2.5 rounded-xl bg-surface-secondary hover:bg-rose-500/10 text-slate-400 hover:text-rose-400 border border-surface-border hover:border-rose-500/30 transition-colors"
+                        className="p-2.5 rounded-xl bg-surface-secondary hover:bg-rose-500/10 text-slate-400 hover:text-rose-400 border border-surface-border hover:border-rose-500/30 transition-colors shrink-0"
                         title="Delete Product"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -498,10 +500,10 @@ export default function DashboardPage() {
 
                   {/* Multi-Store Comparison Breakdown Chips */}
                   <div className="space-y-1.5">
-                    <div className="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">
+                    <div className="text-[10px] sm:text-[11px] text-slate-500 font-semibold uppercase tracking-wider">
                       Store Link Comparison ({prod.product_links.length} store{prod.product_links.length === 1 ? "" : "s"})
                     </div>
-                    <div className="flex items-center gap-2 flex-wrap">
+                    <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                       {prod.product_links.map((link) => {
                         const isWinningStore = link.last_price !== null && link.last_price === lowestPrice;
                         return (
@@ -510,24 +512,24 @@ export default function DashboardPage() {
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors group ${
+                            className={`inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl text-[11px] sm:text-xs font-medium border transition-colors group max-w-full ${
                               isWinningStore
                                 ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
                                 : "bg-surface-secondary hover:bg-surface-hover border-surface-border text-slate-300"
                             }`}
                           >
-                            <span className="uppercase font-bold text-[10px] tracking-wider text-brand">
+                            <span className="uppercase font-bold text-[9px] sm:text-[10px] tracking-wider text-brand shrink-0">
                               {link.platform}
                             </span>
-                            <span className={isWinningStore ? "font-bold text-emerald-400" : "text-slate-400"}>
+                            <span className={`truncate ${isWinningStore ? "font-bold text-emerald-400" : "text-slate-400"}`}>
                               {link.last_price ? formatINR(link.last_price) : "Scan"}
                             </span>
                             {isWinningStore && (
-                              <span className="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 font-bold uppercase">
+                              <span className="text-[8px] sm:text-[9px] px-1 sm:px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold uppercase shrink-0">
                                 Lowest
                               </span>
                             )}
-                            <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-brand" />
+                            <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-brand shrink-0" />
                           </a>
                         );
                       })}

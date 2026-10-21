@@ -42,8 +42,8 @@ function LoginForm() {
 
   return (
     <div className="w-full max-w-md relative z-10">
-      <div className="text-center mb-8">
-        <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
+      <div className="text-center mb-6 sm:mb-8">
+        <Link href="/" className="inline-flex items-center gap-2 mb-3 sm:mb-4 group">
           <div className="w-10 h-10 rounded-xl bg-surface-secondary border border-surface-border flex items-center justify-center text-brand group-hover:border-brand/50 transition-colors shadow-glow">
             <Tag className="w-5 h-5 text-brand" />
           </div>
@@ -51,19 +51,19 @@ function LoginForm() {
             VECHI
           </span>
         </Link>
-        <h1 className="text-xl font-bold text-slate-100 tracking-tight">
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-100 tracking-tight">
           Sign in to your account
         </h1>
-        <p className="text-sm text-slate-400 mt-1">
+        <p className="text-xs sm:text-sm text-slate-400 mt-1">
           Access your real-time price monitoring console
         </p>
       </div>
 
-      <div className="glass-panel rounded-2xl p-8 shadow-card border border-surface-border">
+      <div className="glass-panel rounded-2xl p-5 sm:p-8 shadow-card border border-surface-border">
         {(errorMessage || errorParam) && (
-          <div className="mb-6 p-3.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-center gap-2.5">
-            <AlertCircle className="w-4 h-4 shrink-0" />
-            <span>
+          <div className="mb-5 sm:mb-6 p-3.5 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs flex items-start sm:items-center gap-2.5">
+            <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 sm:mt-0" />
+            <span className="break-words">
               {errorMessage ||
                 (errorParam === "auth_failed"
                   ? "Google authentication failed. Please try again."
@@ -76,12 +76,12 @@ function LoginForm() {
           <button
             onClick={handleGoogleLogin}
             disabled={loading}
-            className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold text-sm transition-all duration-200 flex items-center justify-center gap-3 shadow-sm hover:shadow active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+            className="w-full min-h-[48px] py-3.5 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold text-sm transition-all duration-200 flex items-center justify-center gap-3 shadow-sm hover:shadow active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
           >
             {loading ? (
               <div className="w-5 h-5 border-2 border-slate-900/20 border-t-slate-900 rounded-full animate-spin" />
             ) : (
-              <svg className="w-5 h-5" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
                 <path
                   fill="#4285F4"
                   d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17Z"
@@ -104,7 +104,7 @@ function LoginForm() {
           </button>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-surface-border space-y-3">
+        <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-surface-border space-y-3">
           <div className="flex items-center gap-2.5 text-xs text-slate-400">
             <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>Row Level Security (RLS) protects your tracked data</span>
@@ -116,7 +116,7 @@ function LoginForm() {
         </div>
       </div>
 
-      <p className="text-center text-xs text-slate-500 mt-6">
+      <p className="text-center text-xs text-slate-500 mt-6 px-4">
         By signing in, you agree to Vechi automated monitoring terms.
       </p>
     </div>
@@ -125,9 +125,9 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 relative overflow-hidden bg-background">
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[300px] h-[300px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none" />
+    <div className="min-h-screen flex flex-col justify-center items-center px-4 py-8 sm:py-12 relative overflow-hidden bg-background">
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[500px] h-[320px] sm:h-[500px] bg-brand/10 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[240px] sm:w-[300px] h-[240px] sm:h-[300px] bg-emerald-500/5 rounded-full blur-[90px] sm:blur-[120px] pointer-events-none" />
       <Suspense fallback={<div className="text-slate-400 text-sm">Loading login...</div>}>
         <LoginForm />
       </Suspense>
