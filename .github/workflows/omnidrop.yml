@@ -1,0 +1,47 @@
+name: OmniDrop V2 Autonomous Background Price Tracker
+
+on:
+  schedule:
+    # Runs every 4 hours, 24/7/365 (00:00, 04:00, 08:00, 12:00, 16:00, 20:00 UTC)
+    - cron: '0 */4 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions Console
+
+concurrency:
+  group: omnidrop-price-tracker
+  cancel-in-progress: false
+
+jobs:
+  track-and-alert:
+    name: Poll Active Prices, Detect Drops & Dispatch Gmail Alerts
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install Project Dependencies
+        run: npm ci
+
+      - name: 🌐 Install Playwright Chromium & System Dependencies
+        # Critical: Fresh install avoids corrupted binary cache issues on headless cloud runners
+        run: npx playwright install chromium --with-deps
+
+      - name: 🚀 Run Autonomous Price Engine & Offline Gmail Dispatch
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
+          GOOGLE_SEARCH_API_KEY: ${{ secrets.GOOGLE_SEARCH_API_KEY }}
+          GOOGLE_SEARCH_CX: ${{ secrets.GOOGLE_SEARCH_CX }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL || 'https://omnidrop.app' }}
+        run: npx tsx worker/cron_engine.ts

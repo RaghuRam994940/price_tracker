@@ -1,0 +1,44 @@
+name: Vechi Automated Background Price Tracker
+
+on:
+  schedule:
+    # Run every 4 hours automatically even when users are offline/logged out
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+    # Allows manual dry-run trigger from GitHub Actions tab
+
+concurrency:
+  group: vechi-price-check-engine
+  cancel-in-progress: false
+
+jobs:
+  track-and-dispatch:
+    name: Background Headless Scraper & Resend Dispatcher
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Project Dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium with OS Dependencies
+        run: npx playwright install chromium --with-deps
+
+      - name: Run Background Price-Checking Worker
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL || 'onboarding@resend.dev' }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL || 'http://localhost:3000' }}
+        run: npx tsx worker/check_prices.ts
